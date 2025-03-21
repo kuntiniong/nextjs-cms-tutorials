@@ -1,0 +1,1 @@
+This [tutorial](https://strapi.io/blog/getting-started-with-next-js-and-strapi-5-beginner-s-guide) is using Nextjs 14 and Strapi 5.
