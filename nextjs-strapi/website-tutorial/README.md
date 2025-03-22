@@ -18,4 +18,6 @@ npm run dev
 
 ---
 
-> *Note: the styling in the tutorial sometimes collides with the background color, look up my globals.css file*
+> *Note 1: the styling in the tutorial sometimes collides with the background color, look up my globals.css file*
+
+> *Note 2: I can only fetch the data from the API using IPv4 style URL (explicit address without localhost) but this could be my configuration problem*
