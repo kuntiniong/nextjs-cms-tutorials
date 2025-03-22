@@ -1,5 +1,7 @@
 import qs from "qs";
 
+import { BlockRenderer, TeamPageBlock } from "@/app/components/blocks";
+
 async function getTeamMember(slug: string) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:1337";
   const path = "/api/team-members";
@@ -46,6 +48,25 @@ async function getTeamMember(slug: string) {
   return teamMember;
 }
 
+interface UserProfile {
+  id: number;
+  documentId: string;
+  name: string;
+  description: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string | null;
+  photo: {
+    id: number;
+    alternativeText: string;
+    name: string;
+    url: string;
+  };
+  blocks: TeamPageBlock[];
+}
+
 export default async function TeamMemberDetail({
   params,
 }: {
@@ -53,15 +74,15 @@ export default async function TeamMemberDetail({
 }) {
   const { slug } = params;
 
-  if (!slug) <p>No member found</p>;
+  if (!slug) return <p>No member found</p>;
 
-  const teamMember = await getTeamMember(slug);
+  const teamMember = (await getTeamMember(slug)) as UserProfile;
 
   return (
     <div>
-      <h1>Team Member Detail</h1>
-      <p>{slug}</p>
-      <pre>{JSON.stringify(teamMember, null, 2)}</pre>
+      {teamMember.blocks.map((block: TeamPageBlock) => (
+        <BlockRenderer key={block.id} block={block} />
+      ))}
     </div>
   );
 }
