@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   collectionName: 'team_members';
   info: {
+    description: '';
     displayName: 'Team Member';
     pluralName: 'team-members';
     singularName: 'team-member';
@@ -380,6 +381,9 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    blocks: Schema.Attribute.DynamicZone<
+      ['blocks.testimonial', 'blocks.spoiler', 'blocks.rich-text']
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
