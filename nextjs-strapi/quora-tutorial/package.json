@@ -1,0 +1,17 @@
+{
+  "name": "quora-tutorial",
+  "packageManager": "yarn@1.22.22",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/shared/*"
+  ],
+  "engines": {
+    "node": ">=20.15.1"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "generate-types": "turbo run generate-types"
+  }
+}
