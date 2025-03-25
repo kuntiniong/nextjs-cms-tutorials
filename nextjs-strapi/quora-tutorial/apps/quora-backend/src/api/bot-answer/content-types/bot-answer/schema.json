@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bot_answers",
+  "info": {
+    "singularName": "bot-answer",
+    "pluralName": "bot-answers",
+    "displayName": "Bot Answer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "question": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::question.question",
+      "inversedBy": "bot_answer"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "bot_answer"
+    },
+    "votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "bot_answer"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "Comment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "commenter": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "comments"
+    },
+    "question": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::question.question",
+      "inversedBy": "comments"
+    },
+    "answer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::answer.answer",
+      "inversedBy": "comments"
+    },
+    "bot_answer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::bot-answer.bot-answer",
+      "inversedBy": "comments"
+    },
+    "votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "comment"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

@@ -369,6 +369,189 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnswerAnswer extends Struct.CollectionTypeSchema {
+  collectionName: 'answers';
+  info: {
+    description: '';
+    displayName: 'Answer';
+    pluralName: 'answers';
+    singularName: 'answer';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    answerer: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    body: Schema.Attribute.RichText;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::answer.answer'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.Relation<'manyToOne', 'api::question.question'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    votes: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'>;
+  };
+}
+
+export interface ApiBotAnswerBotAnswer extends Struct.CollectionTypeSchema {
+  collectionName: 'bot_answers';
+  info: {
+    description: '';
+    displayName: 'Bot Answer';
+    pluralName: 'bot-answers';
+    singularName: 'bot-answer';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::bot-answer.bot-answer'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.Relation<'oneToOne', 'api::question.question'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    votes: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'>;
+  };
+}
+
+export interface ApiCommentComment extends Struct.CollectionTypeSchema {
+  collectionName: 'comments';
+  info: {
+    description: '';
+    displayName: 'Comment';
+    pluralName: 'comments';
+    singularName: 'comment';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    answer: Schema.Attribute.Relation<'manyToOne', 'api::answer.answer'>;
+    body: Schema.Attribute.RichText;
+    bot_answer: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::bot-answer.bot-answer'
+    >;
+    commenter: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::comment.comment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.Relation<'manyToOne', 'api::question.question'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    votes: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'>;
+  };
+}
+
+export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
+  collectionName: 'questions';
+  info: {
+    displayName: 'Question';
+    pluralName: 'questions';
+    singularName: 'question';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    answers: Schema.Attribute.Relation<'oneToMany', 'api::answer.answer'>;
+    asker: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    bot_answer: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::bot-answer.bot-answer'
+    >;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::question.question'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    votes: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'>;
+  };
+}
+
+export interface ApiVoteVote extends Struct.CollectionTypeSchema {
+  collectionName: 'votes';
+  info: {
+    displayName: 'Vote';
+    pluralName: 'votes';
+    singularName: 'vote';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    answer: Schema.Attribute.Relation<'manyToOne', 'api::answer.answer'>;
+    bot_answer: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::bot-answer.bot-answer'
+    >;
+    comment: Schema.Attribute.Relation<'manyToOne', 'api::comment.comment'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.Relation<'manyToOne', 'api::question.question'>;
+    type: Schema.Attribute.Enumeration<['upvote', 'downvote']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    voter: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -827,7 +1010,9 @@ export interface PluginUsersPermissionsUser
     timestamps: true;
   };
   attributes: {
+    answers: Schema.Attribute.Relation<'oneToMany', 'api::answer.answer'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -851,6 +1036,7 @@ export interface PluginUsersPermissionsUser
       }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
@@ -865,6 +1051,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    votes: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'>;
   };
 }
 
@@ -878,6 +1065,11 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::answer.answer': ApiAnswerAnswer;
+      'api::bot-answer.bot-answer': ApiBotAnswerBotAnswer;
+      'api::comment.comment': ApiCommentComment;
+      'api::question.question': ApiQuestionQuestion;
+      'api::vote.vote': ApiVoteVote;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
